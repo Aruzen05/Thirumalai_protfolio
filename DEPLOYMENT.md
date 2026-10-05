@@ -140,6 +140,10 @@ If you bought the domain somewhere else (GoDaddy, Namecheap, 123-reg, IONOS, etc
 
 Cloudflare creates the DNS records and HTTPS certificate automatically (a few minutes). If it says a DNS record already exists for that name, delete that record under **DNS → Records** and try again.
 
+> **Using a subdomain** (this site lives at `thirumalai.aruzens.com`): add exactly that name as the custom domain, and skip `www` and Step 5.3 — they only apply to a bare domain.
+>
+> Choose **Custom domain**, not **Route**. A route doesn't create a DNS record, so the address won't exist and browsers show `DNS_PROBE_FINISHED_NXDOMAIN`.
+
 ### 5.3 Send `www` to the main address
 
 **Rules** → **Create rule** → **Redirect Rules** → use the template **Redirect from WWW to Root** → **Deploy**. Now `www.your-domain.com` redirects to `your-domain.com`, so search engines see one address.
@@ -193,6 +197,7 @@ Cloudflare rebuilds and deploys automatically in 2–3 minutes. To undo a bad de
 | --- | --- |
 | Build fails: Worker name doesn't match | The Cloudflare project name must be `aruzen-portfolio`, the same as `name` in `wrangler.toml`. |
 | Build fails fetching fonts | Fonts are downloaded from Google at build time; it's usually a temporary network blip — click **Retry build**. |
+| Chrome: `DNS_PROBE_FINISHED_NXDOMAIN` / "This site can't be reached" | The address has no DNS record: add it under **Settings → Domains & Routes → Add → Custom domain** (not a Route). Afterwards run `ipconfig /flushdns` and wait a few minutes — a "not found" answer can be cached for up to 30 minutes. |
 | "DNS record already exists" when adding the domain | Delete the existing `A` / `AAAA` / `CNAME` record for that name under **DNS → Records**, then add the custom domain again. |
 | Domain stuck on "Pending" | Nameservers haven't changed yet at the registrar, or DNSSEC is still on there. |
 | Console shows "Content Security Policy" errors | A Cloudflare feature is injecting scripts — turn off Rocket Loader, Zaraz and automatic Web Analytics (Step 5.4). |

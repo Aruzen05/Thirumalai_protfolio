@@ -2,7 +2,7 @@
 // Edit this file to update the portfolio; pages render from it.
 
 export const site = {
-  url: "https://aruzen.uk",
+  url: "https://thirumalai.aruzens.com",
   name: "Thirumalai Arumugam",
   initials: "TA",
   roles: ["Software Engineer", "Cybersecurity Specialist", "AI Product Developer"],
