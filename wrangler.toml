@@ -1,0 +1,9 @@
+name = "aruzen-portfolio"
+compatibility_date = "2026-10-01"
+
+# Static assets only — no Worker script. `pnpm build` writes ./out
+# (including the generated _headers file with the per-page CSP).
+[assets]
+directory = "./out"
+html_handling = "auto-trailing-slash"
+not_found_handling = "404-page"
