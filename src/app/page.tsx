@@ -14,31 +14,19 @@ import {
   disciplines,
   education,
   experience,
+  faq,
   heroSkills,
   profile,
   projects,
   publication,
+  quickFacts,
   researchInterests,
   site,
   skills,
   stats,
   typedRoles,
 } from "@/content/profile";
-
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: site.name,
-  url: site.url,
-  email: `mailto:${site.email}`,
-  telephone: site.phones.map((p) => p.href.replace("tel:", "")),
-  jobTitle: site.roles[0],
-  description: site.description,
-  address: { "@type": "PostalAddress", addressCountry: "GB" },
-  alumniOf: education.map((e) => ({ "@type": "CollegeOrUniversity", name: e.school })),
-  knowsAbout: ["Software engineering", "Application security", "Security architecture", "Identity and access management", "Privacy by design", "Generative AI"],
-  sameAs: Object.values(site.links).filter(Boolean),
-};
+import { homeJsonLd, jsonLd } from "@/content/structured-data";
 
 const doiUrl = `https://doi.org/${publication.doi}`;
 
@@ -87,10 +75,7 @@ export default function Home() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(homeJsonLd()) }} />
 
       {/* ---------------------------------------------------------- Hero */}
       <section className="hero" aria-labelledby="hero-title">
@@ -199,7 +184,12 @@ export default function Home() {
       </Section>
 
       {/* -------------------------------------------------------- Services */}
-      <Section id="services" eyebrow="Expertise" title="What I do">
+      <Section
+        id="services"
+        eyebrow="Expertise"
+        title="What I do"
+        intro="Secure software engineering, cybersecurity and AI product development — taking platforms from first requirements to production, with security and privacy designed in."
+      >
         <div className="services">
           <div className="services-visual">
             <CodeCard />
@@ -313,6 +303,15 @@ export default function Home() {
         <article className="paper">
           <p className="paper-venue">Publication · {publication.venue}</p>
           <h3 className="paper-title">“{publication.title}”</h3>
+          <p className="paper-authors">
+            {publication.authors.map((a, i) => (
+              <span key={a}>
+                {i > 0 && ", "}
+                {a === publication.selfAs ? <strong>{a}</strong> : a}
+              </span>
+            ))}{" "}
+            · {publication.proceedings}
+          </p>
           <p className="paper-summary">{publication.summary}</p>
           <a className="btn btn-ghost btn-sm" href={doiUrl} rel="noopener noreferrer" target="_blank">
             Read on IEEE Xplore <ArrowIcon className="i" />
@@ -370,6 +369,36 @@ export default function Home() {
               </ul>
             </div>
           ))}
+        </div>
+      </Section>
+
+      {/* ------------------------------------------------ Quick facts & FAQ */}
+      <Section
+        id="faq"
+        eyebrow="At a glance"
+        title="Quick facts & FAQ"
+        intro="The short version — for recruiters, hiring managers and anyone skimming."
+      >
+        <div className="faq-grid">
+          <dl className="facts">
+            {quickFacts.map((f) => (
+              <div key={f.label} className="fact">
+                <dt>{f.label}</dt>
+                <dd>{f.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <div className="faq">
+            {faq.map((f, i) => (
+              <details key={f.q} className="faq-item" open={i === 0}>
+                <summary>
+                  <h3>{f.q}</h3>
+                  <span className="faq-toggle" aria-hidden="true" />
+                </summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </Section>
 

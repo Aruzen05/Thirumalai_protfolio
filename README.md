@@ -4,6 +4,8 @@ Personal portfolio for Thirumalai Arumugam. Next.js (App Router) exported as a f
 
 **Going live:** follow [DEPLOYMENT.md](DEPLOYMENT.md) — GitHub, Cloudflare hosting, custom domain, and the pre-launch checklist.
 
+**Getting found:** [SEO.md](SEO.md) — what's built in for search engines and AI answer engines, and the off-site steps (Search Console, Bing, Cloudflare AI-crawler settings, profiles).
+
 ## Editing content
 
 Everything the site says lives in [`src/content/profile.ts`](src/content/profile.ts): profile, projects, experience, research, education, certifications and skills. Add a project to the `projects` array and its page at `/work/<slug>/` is generated automatically.

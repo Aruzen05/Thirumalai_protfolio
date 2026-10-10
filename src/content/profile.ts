@@ -2,8 +2,11 @@
 // Edit this file to update the portfolio; pages render from it.
 
 export const site = {
-  url: "https://thirumalai.aruzens.com",
+  url: "https://thirumalai.aruzen.uk",
   name: "Thirumalai Arumugam",
+  // Other forms of your name in use (e.g. on the IEEE paper), so search
+  // engines and AI assistants connect them to you.
+  alternateNames: ["Thirumalai A", "A. Thirumalai"],
   initials: "TA",
   roles: ["Software Engineer", "Cybersecurity Specialist", "AI Product Developer"],
   location: "United Kingdom",
@@ -12,11 +15,17 @@ export const site = {
     { label: "UK", display: "+44 7733 927448", href: "tel:+447733927448" },
     { label: "India", display: "+91 87548 53459", href: "tel:+918754853459" },
   ],
+  // Region shown to search engines and AI assistants ("Based in …").
+  region: "North East England",
   links: {
     linkedin: "https://www.linkedin.com/in/thirumalai-aruzentech",
-    // Add your profile URLs; empty links are hidden.
+    // Add your profile URLs; empty links are hidden. Every link here is also
+    // listed as "sameAs" in the structured data, which helps Google and AI
+    // assistants recognise all your profiles as the same person.
     github: "",
     researchgate: "https://www.researchgate.net/profile/Thirumalai-Arumugam",
+    orcid: "",
+    googleScholar: "",
   },
   status: "Open to software, security and AI product roles",
   description:
@@ -27,6 +36,93 @@ export const site = {
   contactPhoto: { src: "/profile-contact.webp", width: 976, height: 1082 },
   // Illustrated portrait, used as the round brand icon in the header and footer.
   avatar: "/avatar.webp",
+};
+
+// ---------------------------------------------------------------------------
+// Search (SEO) and AI answer engines (GEO). Everything here must stay factual:
+// it's what Google, Bing, ChatGPT, Perplexity and others will quote about you.
+// ---------------------------------------------------------------------------
+
+export const seo = {
+  // ~60 characters: shown as the blue headline in Google results.
+  title: "Thirumalai Arumugam | Software Engineer & Cybersecurity Specialist",
+  // ~155 characters: the grey snippet under the headline.
+  description:
+    "Thirumalai Arumugam — UK software engineer and cybersecurity specialist (MSc, Teesside University). Portfolio & CV: secure, AI-powered web platforms and research.",
+  // Search phrases the site is written to match. Google ignores the keywords
+  // meta tag itself, so these mainly feed Bing, structured data and llms.txt —
+  // the real ranking work is done by the page titles, headings and content.
+  keywords: [
+    // Name searches
+    "Thirumalai Arumugam",
+    "Thirumalai Arumugam portfolio",
+    "Thirumalai Arumugam CV",
+    "Thirumalai Arumugam resume",
+    "Thirumalai Arumugam software engineer",
+    "Thirumalai Arumugam cybersecurity",
+    "Thirumalai Arumugam Teesside University",
+    "Thirumalai Arumugam IEEE",
+    // Roles
+    "software engineer",
+    "cybersecurity specialist",
+    "security engineer",
+    "application security engineer",
+    "security architect",
+    "secure software engineer",
+    "full-stack developer",
+    "AI product developer",
+    // Roles by location
+    "software engineer UK",
+    "cybersecurity specialist UK",
+    "software engineer North East England",
+    "cybersecurity Teesside",
+    "software developer Middlesbrough",
+    "software engineer Stockton-on-Tees",
+    // Expertise
+    "security by design",
+    "privacy by design",
+    "identity and access management",
+    "secure API design",
+    "authentication and authorisation",
+    "attack surface analysis",
+    "data protection",
+    "privacy policy and terms writing",
+    // Technology
+    "Next.js developer",
+    "NestJS developer",
+    "FastAPI developer",
+    "TypeScript developer",
+    "Python developer",
+    "React",
+    "PostgreSQL",
+    "Cloudflare",
+    "Microsoft Azure",
+    "WebAuthn",
+    "Auth0",
+    // AI
+    "generative AI applications",
+    "LLM applications",
+    "on-device AI inference",
+    "ONNX Runtime Web",
+    // Research
+    "continuous authentication",
+    "behavioural biometrics",
+    "IoT security",
+    "cloud security",
+    "IEEE ICEARS 2023",
+    // Qualifications
+    "MSc Cybersecurity Teesside University",
+    "SC-900",
+    "AZ-900",
+    "AI-900",
+    // Projects
+    "Dhyana Stays",
+    "AI Vastu floor plan analysis",
+    "construction BOQ software",
+  ],
+  // Optional verification codes for Google Search Console / Bing Webmaster
+  // Tools if you verify with an HTML meta tag (DNS verification needs nothing here).
+  verification: { google: "", bing: "" },
 };
 
 // Typed in the hero, one after another: "Hi, I'm Thirumalai — a Software Engineer."
@@ -478,12 +574,18 @@ export const experience: Role[] = [
   },
 ];
 
+// Details as registered with Crossref for the DOI (authors in published order).
 export const publication = {
   title: "Effective Management of IoT Devices That Can Withstand Attacks on Cloud Data",
   venue: "IEEE ICEARS 2023",
+  proceedings: "2023 Second International Conference on Electronics and Renewable Systems (ICEARS)",
+  date: "2023-03-02",
+  authors: ["Arunkumar M", "Thirumalai A"],
+  // How your name appears in the author list above.
+  selfAs: "Thirumalai A",
   doi: "10.1109/ICEARS56392.2023.10085408",
   summary:
-    "Published and presented research investigating the security of IoT devices operating against cloud-based data environments.",
+    "Co-authored, published and presented research investigating the security of IoT devices operating against cloud-based data environments.",
 };
 
 export const researchInterests = [
@@ -567,5 +669,59 @@ export const approach = [
     step: "govern",
     title: "Govern",
     body: "Privacy Policies, Terms and security documentation written from how the platform actually works — then kept true to it.",
+  },
+];
+
+// ---------------------------------------------------------------------------
+// "Quick facts & FAQ" section. Short, self-contained factual statements are
+// what AI answer engines quote, and what recruiters skim — keep them accurate.
+// ---------------------------------------------------------------------------
+
+const ukPhone = site.phones.find((p) => p.label === "UK");
+const indiaPhone = site.phones.find((p) => p.label === "India");
+
+export const quickFacts: { label: string; value: string }[] = [
+  { label: "Name", value: site.name },
+  { label: "Roles", value: site.roles.join(" · ") },
+  { label: "Based in", value: `${site.region}, ${site.location}` },
+  {
+    label: "Education",
+    value: education.map((e) => `${e.degree}, ${e.school} (${e.year})`).join(" · "),
+  },
+  { label: "Research", value: `${publication.venue} — IoT security and cloud data` },
+  { label: "Certifications", value: "Microsoft SC-900, AZ-900, AI-900 · Cisco Networking Academy" },
+  { label: "Core stack", value: "TypeScript, Python, Next.js, NestJS, FastAPI, PostgreSQL, Cloudflare, Azure" },
+  { label: "Focus", value: "Security-by-design, privacy-by-design, identity & access management, AI products" },
+  { label: "Status", value: site.status },
+];
+
+export const faq: { q: string; a: string }[] = [
+  {
+    q: `Who is ${site.name}?`,
+    a: `${site.name} is a software engineer and cybersecurity specialist based in ${site.region}, UK. He designs and builds secure, AI-enabled web platforms — from requirements and architecture through APIs, authentication and deployment — and holds an MSc in Cybersecurity from Teesside University.`,
+  },
+  {
+    q: `What does ${site.name} specialise in?`,
+    a: "Secure software engineering: security-by-design and privacy-by-design architecture, application and API security, identity and access management, and full-stack development with TypeScript, Python, Next.js, NestJS and FastAPI — alongside AI product development, including LLM applications and in-browser AI inference.",
+  },
+  {
+    q: "What qualifications and certifications does he hold?",
+    a: "An MSc in Cybersecurity from Teesside University (2026) and a B.Tech in Information Technology from IFET College of Engineering (2023), plus Microsoft SC-900, AZ-900 and AI-900 certifications and Cisco Networking Academy course certificates in cybersecurity and networking.",
+  },
+  {
+    q: "Has he published research?",
+    a: `Yes — he co-authored “${publication.title}” with ${publication.authors.filter((a) => a !== publication.selfAs).join(", ")}, published in the proceedings of the ${publication.proceedings} (${publication.venue}, DOI ${publication.doi}), where his name appears as ${publication.selfAs}. His wider research interests include continuous authentication, behavioural biometrics and privacy-preserving identity.`,
+  },
+  {
+    q: "What has he built?",
+    a: "Dhyana Stays, a multi-sided accommodation booking platform built with Next.js and NestJS; an AI architecture and Vastu floor-plan assistant (Next.js, FastAPI); a construction Bill of Quantities engine and marketplace; a continuous background verification research concept; an AI talking-head video platform architecture; and a 2D-to-3D design platform concept.",
+  },
+  {
+    q: `Is ${site.name} open to new roles?`,
+    a: "Yes — he is open to software engineering, security engineering and AI product roles. He currently works in Inventory Control & Quality Assurance at Amazon's NCL2 fulfilment centre.",
+  },
+  {
+    q: "How can I contact him?",
+    a: `By email at ${site.email}${ukPhone ? `, by phone on ${ukPhone.display} (UK)` : ""}${indiaPhone ? ` or ${indiaPhone.display} (India)` : ""}, or on LinkedIn.`,
   },
 ];

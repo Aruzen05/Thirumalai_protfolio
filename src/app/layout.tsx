@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { site } from "@/content/profile";
+import { seo, site } from "@/content/profile";
 import "./globals.css";
 
 const sans = Plus_Jakarta_Sans({
@@ -20,24 +20,46 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
-const title = `${site.name} — ${site.roles.join(", ")}`;
+const [firstName, ...rest] = site.name.split(" ");
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: title, template: `%s — ${site.name}` },
-  description: site.description,
+  title: { default: seo.title, template: `%s | ${site.name}` },
+  description: seo.description,
+  keywords: seo.keywords,
+  applicationName: `${site.name} — Portfolio`,
   authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  publisher: site.name,
+  category: "technology",
   alternates: { canonical: "/" },
   openGraph: {
     type: "profile",
+    firstName,
+    lastName: rest.join(" "),
     locale: "en_GB",
     url: "/",
-    siteName: site.name,
-    title,
-    description: site.description,
+    siteName: `${site.name} — Portfolio`,
+    title: seo.title,
+    description: seo.description,
   },
-  twitter: { card: "summary_large_image", title, description: site.description },
-  robots: { index: true, follow: true },
+  twitter: { card: "summary_large_image", title: seo.title, description: seo.description },
+  // Let Google show large image previews and full-length snippets
+  // (also used by AI Overviews and Discover).
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+  },
+  verification: {
+    ...(seo.verification.google && { google: seo.verification.google }),
+    ...(seo.verification.bing && { other: { "msvalidate.01": seo.verification.bing } }),
+  },
+  // Location signals for regional search engines.
+  other: {
+    "geo.region": "GB-ENG",
+    "geo.placename": `${site.region}, ${site.location}`,
+  },
 };
 
 export const viewport: Viewport = {

@@ -22,7 +22,7 @@ export function Portrait({
       <img
         className={`portrait-img ${className ?? ""}`}
         src={photo.src}
-        alt={`Portrait of ${site.name}`}
+        alt={`${site.name}, ${site.roles[0].toLowerCase()} and ${site.roles[1].toLowerCase()} based in the UK`}
         width={photo.width}
         height={photo.height}
         decoding="async"

@@ -140,7 +140,7 @@ If you bought the domain somewhere else (GoDaddy, Namecheap, 123-reg, IONOS, etc
 
 Cloudflare creates the DNS records and HTTPS certificate automatically (a few minutes). If it says a DNS record already exists for that name, delete that record under **DNS → Records** and try again.
 
-> **Using a subdomain** (this site lives at `thirumalai.aruzens.com`): add exactly that name as the custom domain, and skip `www` and Step 5.3 — they only apply to a bare domain.
+> **Using a subdomain** (this site lives at `thirumalai.aruzen.uk`): add exactly that name as the custom domain, and skip `www` and Step 5.3 — they only apply to a bare domain.
 >
 > Choose **Custom domain**, not **Route**. A route doesn't create a DNS record, so the address won't exist and browsers show `DNS_PROBE_FINISHED_NXDOMAIN`.
 
@@ -162,6 +162,8 @@ Under **SSL/TLS → Edge Certificates**:
 - **Rocket Loader** (Speed → Optimization)
 - **Web Analytics automatic setup / Zaraz**
 - **Email Address Obfuscation** (Scrape Shield)
+
+Also check **AI Crawl Control**: make sure **Block AI bots** and Cloudflare's **managed robots.txt** are off, or ChatGPT, Claude and Perplexity can't see the site. Details in [SEO.md](SEO.md), step 1.
 
 ---
 

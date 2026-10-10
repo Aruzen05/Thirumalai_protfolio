@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProjectArt } from "@/components/ProjectArt";
 import { projects, site } from "@/content/profile";
+import { jsonLd, projectJsonLd } from "@/content/structured-data";
 
 type Params = { slug: string };
 
@@ -16,17 +17,20 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
+  const title = `${project.name} — ${project.short}`;
   return {
-    title: project.name,
+    title,
     description: project.summary,
+    keywords: [project.name, project.kind, ...project.stack, site.name],
     alternates: { canonical: `/work/${project.slug}/` },
     openGraph: {
       type: "article",
       locale: "en_GB",
-      siteName: site.name,
-      title: `${project.name} — ${site.name}`,
+      siteName: `${site.name} — Portfolio`,
+      title: `${title} | ${site.name}`,
       description: project.summary,
       url: `/work/${project.slug}/`,
+      authors: [site.name],
     },
   };
 }
@@ -42,6 +46,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
 
   return (
     <article className="project">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(projectJsonLd(project)) }} />
       <nav className="crumbs" aria-label="Breadcrumb">
         <Link href="/">~</Link>
         <span aria-hidden="true">/</span>
