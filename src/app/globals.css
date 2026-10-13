@@ -2161,7 +2161,7 @@ section[id] {
   }
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .faq-item summary:hover h3 {
     color: var(--accent);
   }
@@ -2785,10 +2785,12 @@ section[id] {
 }
 
 /* ==========================================================================
-   Hover — pointer devices only, so a tap never leaves a stuck state.
+   Hover — mouse/trackpad only. "pointer: fine" matters: some Android phones
+   (e.g. with a stylus) report hover support, and without it cards would
+   lift and zoom under your thumb while scrolling.
    ========================================================================== */
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   a:hover {
     text-decoration-color: var(--accent);
   }
